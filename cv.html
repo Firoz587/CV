@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MD FIROZ ISLAM - Professional CV</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f4f8;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .cv-container {
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #4a6491);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .header .title {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            padding: 30px;
+        }
+        
+        .left-column, .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .section {
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            color: #2c3e50;
+            border-bottom: 2px solid #4a6491;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .about {
+            line-height: 1.8;
+        }
+        
+        .education-item, .project-item {
+            margin-bottom: 20px;
+        }
+        
+        .education-item h3, .project-item h3 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .education-item .date, .project-item .tech {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+        
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .skill {
+            background: #eef2f7;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .achievement {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        
+        .achievement i {
+            color: #4a6491;
+        }
+        
+        .language, .hobby {
+            margin-bottom: 10px;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+        
+        .progress {
+            height: 100%;
+            background: #4a6491;
+            border-radius: 4px;
+        }
+        
+        .hobby {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .hobby i {
+            color: #4a6491;
+            width: 24px;
+        }
+        
+        .code-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .code-profile a {
+            color: #2c3e50;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .code-profile a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+        }
+        
+        .download-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 12px 25px;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        
+        .download-btn:hover {
+            background: #4a6491;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 15px;
+            background: #f0f4f8;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="notification" id="downloadNotification">
+        <i class="fas fa-check-circle"></i> Your CV is downloading...
+    </div>
+
+    <div class="cv-container" id="cvContent">
+        <div class="header">
+            <h1>MD FIROZ ISLAM</h1>
+            <div class="title">Computer Science Student & Software Developer</div>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>mdfirozislam940@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+8801786426404</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Uttara, Dhaka-1230</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="left-column">
+                <div class="section">
+                    <h2 class="section-title">About Me</h2>
+                    <p class="about">
+                        I am a passionate and detail-oriented Computer Science student at Northern University Bangladesh, with a keen interest in software development, database management, and problem solving. I have honed my programming and algorithmic skills through coding competitions and enjoy sharing knowledge.
+                    </p>
+                </div>
+                
+                <div class="section">
+                    <h2 class="section-title">Education</h2>
+                    <div class="education-item">
+                        <h3>BSC in Computer Science</h3>
+                        <div class="date">2022 – Present</div>
+                        <div>Northern University Bangladesh</div>
+                    </div>
+                    
+                    <div class="education-item">
+                        <h3>Higher Secondary Certificate (HSC)</h3>
+                        <div class="date">2019 – 2021</div>
+                        <div>Armed Police Battalion School & College, Bogura</div>
+                        <div>Result: Golden A+</div>
+                    </div>
+                    
+                    <div class="education-item">
+                        <h3>Secondary School Certificate (SSC)</h3>
+                        <div class="date">2012 – 2019</div>
+                        <div>Dighirhat High School</div>
+                        <div>Result: Golden A+</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2 class="section-title">Projects</h2>
+                    <div class="project-item">
+                        <h3>Online Shop</h3>
+                        <div class="tech">Technologies: C, File Handling</div>
+                        <p>A console-based application to manage sell buy operations and user authentication.</p>
+                    </div>
+                    <div class="project-item">
+                        <h3>Bank Management System</h3>
+                        <div class="tech">Technologies: Python, File Handling</div>
+                        <p>A console-based application to manage banking operations including account creation, transactions, and user authentication.</p>
+                    </div>
+                    
+                    <div class="project-item">
+                        <h3>E-Commerce Project (Car Shop)</h3>
+                        <div class="tech">Technologies: Django, HTML, CSS, JavaScript</div>
+                        <p>An online car shop with product listings, user authentication, and shopping cart functionality.</p>
+                    </div>
+                    
+                    <div class="project-item">
+                        <h3>Smart-Care & Hotel Management System (API)</h3>
+                        <div class="tech">Technologies: Django REST Framework, PostgreSQL</div>
+                        <p>RESTful APIs for smart-care services and hotel management systems with full CRUD functionality.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="right-column">
+                <div class="section">
+                    <h2 class="section-title">Skills</h2>
+                    <div class="skills-container">
+                        <div class="skill">C/C++</div>
+                        <div class="skill">Python</div>
+                        <div class="skill">Django</div>
+                        <div class="skill">SQL</div>
+                        <div class="skill">MySQL</div>
+                        <div class="skill">PostgreSQL</div>
+                        <div class="skill">HTML</div>
+                        <div class="skill">CSS</div>
+                        <div class="skill">Bootstrap</div>
+                        <div class="skill">Tailwind</div>
+                        <div class="skill">JavaScript</div>
+                        <div class="skill">Problem Solving</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2 class="section-title">Achievements</h2>
+                    <div class="achievement">
+                        <i class="fas fa-trophy"></i>
+                        <span>Codeforces Rating: Pupil (Max Rating 1238)</span>
+                    </div>
+                    <div class="code-profile">
+                        <i class="fas fa-link"></i>
+                        <a href="https://codeforces.com/profile/Firoz_587" target="_blank">codeforces.com/profile/Firoz_587</a>
+                    </div>
+                    <div class="achievement">
+                        <i class="fas fa-trophy"></i>
+                        <span>Codechef Rating: 3 Star (Max Rating 1615)</span>
+                    </div>
+                    <div class="code-profile">
+                        <i class="fas fa-link"></i>
+                        <a href="https://www.codechef.com/users/firoz_587" target="_blank">codechef.com/users/firoz_587</a>
+                    </div>
+                    <div class="achievement">
+                        <i class="fas fa-certificate"></i>
+                        <span>Python Certificate (CGPA-4)</span>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2 class="section-title">Languages</h2>
+                    <div class="language">
+                        <div>Bengali</div>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 100%"></div>
+                        </div>
+                        <div class="language">Native</div>
+                    </div>
+                    
+                    <div class="language">
+                        <div>English</div>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 80%"></div>
+                        </div>
+                        <div class="language">Fluent</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2 class="section-title">Interests & Hobbies</h2>
+                    <div class="hobby">
+                        <i class="fas fa-code"></i>
+                        <span>Coding & Problem Solving</span>
+                    </div>
+                    <div class="hobby">
+                        <i class="fas fa-laptop-code"></i>
+                        <span>Programming</span>
+                    </div>
+                    <div class="hobby">
+                        <i class="fas fa-book"></i>
+                        <span>Reading</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+    
+</body>
+</html>
